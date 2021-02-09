@@ -52,7 +52,7 @@ public class ForegroundService extends Service {
 
     // Default title of the background notification
     private static final String NOTIFICATION_TITLE =
-            "App is running in background";
+            "BetterCrewlink is running in background";
 
     // Default text of the background notification
     private static final String NOTIFICATION_TEXT =
@@ -172,12 +172,12 @@ public class ForegroundService extends Service {
     private Notification makeNotification (JSONObject settings)
     {
         // use channelid for Oreo and higher
-        String CHANNEL_ID = "cordova-plugin-background-mode-id";
+        String CHANNEL_ID = "bettercrewlink-background-id";
         if(Build.VERSION.SDK_INT >= 26){
         // The user-visible name of the channel.
-        CharSequence name = "cordova-plugin-background-mode";
+        CharSequence name = "BetterCrewlink-Notifications";
         // The user-visible description of the channel.
-        String description = "cordova-plugin-background-moden notification";
+        String description = "BetterCrewlink notifications";
 
         int importance = NotificationManager.IMPORTANCE_LOW;
 
@@ -185,6 +185,7 @@ public class ForegroundService extends Service {
 
         // Configure the notification channel.
         mChannel.setDescription(description);
+        mChannel.setSound(null, null);
 
         getNotificationManager().createNotificationChannel(mChannel);
         }
@@ -199,7 +200,7 @@ public class ForegroundService extends Service {
 
         Notification.Builder notification = new Notification.Builder(context)
                 .setContentTitle(title)
-                .setContentText(text)
+              //  .setContentText(text)
                 .setOngoing(true)
                 .setSmallIcon(getIconResId(settings));
 
@@ -211,10 +212,10 @@ public class ForegroundService extends Service {
             notification.setPriority(Notification.PRIORITY_MIN);
         }
 
-        if (bigText || text.contains("\n")) {
-            notification.setStyle(
-                    new Notification.BigTextStyle().bigText(text));
-        }
+        // if (bigText || text.contains("\n")) {
+        //     notification.setStyle(
+        //             new Notification.BigTextStyle().bigText(text));
+        // }
 
         setColor(notification, settings);
 
